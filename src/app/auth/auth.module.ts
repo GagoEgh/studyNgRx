@@ -8,6 +8,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './store/reducer/auth.reducer';
+
+
 
 const routes: Routes = [
   {path:'',pathMatch:'full',redirectTo:'login'},
@@ -31,7 +35,8 @@ const routes: Routes = [
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    StoreModule.forFeature('auth',authReducer)
   
   ],
   exports:[RouterModule]

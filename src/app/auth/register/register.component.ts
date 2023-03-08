@@ -4,6 +4,9 @@ import { Store } from '@ngrx/store';
 import { registerAction } from '../store/actions/register.action';
 
 
+
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -41,6 +44,5 @@ export class RegisterComponent {
   onSubmit() {
     console.log(this.registerForm.value);
     this._store.dispatch(registerAction(this.registerForm.value))
-    
   }
 }
