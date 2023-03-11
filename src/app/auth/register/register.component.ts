@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store, } from '@ngrx/store';
 import { map, Observable, } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { RegisterAction } from '../store/action';
+import { registerAction } from '../store/action';
 import { IRegisterRequest } from '../modele';
 import { isSubmitingSelector } from '../store/selector/aut.selector';
 
@@ -15,19 +15,19 @@ import { isSubmitingSelector } from '../store/selector/aut.selector';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  registerForm!: FormGroup;
   hide = true;
-  isSubmit$ = new Observable<boolean>()
+  registerForm!: FormGroup;
+  isSubmit$ = new Observable<boolean>();
+
   constructor(
     private _fb: FormBuilder,
-    private _store: Store
+    private _store: Store,
+    private _authServic:AuthService
   ) { }
 
   ngOnInit(): void {
     this.initForm();
     this.isSubmit$ = this._store.pipe(select(isSubmitingSelector))
-  
-   
   }
 
   initForm() {
@@ -49,8 +49,17 @@ export class RegisterComponent {
     const request: IRegisterRequest = {
       user: this.registerForm.value
     }
-    this._store.dispatch(RegisterAction({ request }));
-    console.log('sub')
+    this._store.dispatch(registerAction({ request }));
+
+    // this._authServic.register(request)
+    // .subscribe({
+    //   next:(res)=>{
+    //     console.log(res)
+    //   },
+    //   error:(err)=>{
+    //     console.log(err)
+    //   }
+    // })
   }
 }
 

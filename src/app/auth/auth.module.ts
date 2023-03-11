@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './store/reduce/register.reduce';
+import { EffectsModule } from '@ngrx/effects';
+import { RegisterEffects } from './store/effects/register.effects';
 
 
 const routes: Routes = [
@@ -34,8 +36,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    StoreModule.forFeature('auth',authReducer)
- 
+    StoreModule.forFeature('auth',authReducer),
+    EffectsModule.forFeature([RegisterEffects])
   ],
   exports: [RouterModule],
   providers: [

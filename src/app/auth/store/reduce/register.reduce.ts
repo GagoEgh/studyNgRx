@@ -1,7 +1,7 @@
 
 import { createReducer, on } from "@ngrx/store";
 import { IIsSubmiting } from "../..";
-import { RegisterAction } from "../action";
+import { registerAction } from "../action";
 
 export const isSubmitState: IIsSubmiting = {
     isSubmit: false
@@ -10,7 +10,7 @@ export const isSubmitState: IIsSubmiting = {
 export const authReducer = createReducer(
     isSubmitState,
     on(
-        RegisterAction,
+        registerAction,
         (state): IIsSubmiting => ({
             ...state,
             isSubmit: true
