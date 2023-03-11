@@ -2,22 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent, RegisterComponent } from '.';
 import { RouterModule, Routes } from '@angular/router';
-
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './auth.service';
 import { StoreModule } from '@ngrx/store';
-import { authReducer } from './store/reducer/auth.reducer';
-
+import { authReducer } from './store/reduce/register.reduce';
 
 
 const routes: Routes = [
-  {path:'',pathMatch:'full',redirectTo:'login'},
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent},
-  
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+
 ];
 
 
@@ -31,14 +30,16 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     StoreModule.forFeature('auth',authReducer)
-  
+ 
   ],
-  exports:[RouterModule]
+  exports: [RouterModule],
+  providers: [
+    AuthService
+  ],
 })
 export class AuthModule { }

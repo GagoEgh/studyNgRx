@@ -5,7 +5,7 @@
         <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="fill">
                 <mat-label>Enter your name</mat-label>
-                <input matInput placeholder="Name" formControlName="name" required>
+                <input matInput placeholder="Name" formControlName="username" required>
                 <mat-error *ngIf="getErrorMessage('name','required')">
                     You must enter a value
                 </mat-error>
@@ -33,7 +33,7 @@
                 </mat-error>
                 
             </mat-form-field>
-            <button class="login-btn" mat-raised-button>Primary</button>
+            <button class="login-btn" mat-raised-button [disabled]="isSubmit$|async">Registr</button>
         </form>
     </div>
 </div>
