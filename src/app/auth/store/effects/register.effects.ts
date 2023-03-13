@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, map, of, switchMap, take, tap } from "rxjs";
 import { ICurrentUser } from "src/app/core/shared/model/currentUser.interface";
+import { ParesTokenService } from "src/app/core/shared/parseToken.serviece";
 import { AuthService } from "../../auth.service";
 import { registerAction, registerFailureAction, registerSuccessAction } from "../action";
 
@@ -11,7 +13,9 @@ export class RegisterEffects {
 
     constructor(
         private _authService: AuthService,
-        private _actions$: Actions
+        private _actions$: Actions,
+        private _paresTokenService: ParesTokenService,
+        private _router: Router
     ) { }
 
     register$ = createEffect(
@@ -21,14 +25,26 @@ export class RegisterEffects {
                 switchMap(({ request }) => {
                     return this._authService.register(request)
                         .pipe(map((user: ICurrentUser) => {
-                            return registerSuccessAction({user})
+                            this._paresTokenService.setToken("authToken", user.token)
+                            return registerSuccessAction({ user })
                         }),
-                        catchError((httpErrore:HttpErrorResponse) => {
-                            return of(registerFailureAction({errore:httpErrore.error.errors}))
-                        })
+                            catchError((httpErrore: HttpErrorResponse) => {
+                                return of(registerFailureAction({ errore: httpErrore.error.errors }))
+                            })
                         )
                 }),
-                
-               
             ))
+
+
+    home$ = createEffect(
+       
+        () => this._actions$.pipe(
+            ofType(registerSuccessAction),
+            tap(() => {
+                this._router.navigateByUrl('home')
+            })),
+        {
+            dispatch: false,
+        }
+    )
 }

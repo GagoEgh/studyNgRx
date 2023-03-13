@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackendErroreComponent } from './backend-errore/backend-errore.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ParesTokenService } from './parseToken.serviece';
 
 
 
@@ -19,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     BackendErroreComponent
-  ]
+  ],
+  providers:[ParesTokenService]
 })
 export class SharedModule { }
