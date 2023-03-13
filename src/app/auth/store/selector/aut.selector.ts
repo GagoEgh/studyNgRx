@@ -8,3 +8,8 @@ export const isSubmitingSelector = createSelector(
     authFuture,
     (state: IIsSubmiting) => state.isSubmit
 )
+
+export const backendErroreSelector = createSelector(
+    authFuture,
+    (state: IIsSubmiting) => state.errore
+)

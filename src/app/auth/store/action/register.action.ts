@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IBakendErrore } from 'src/app/core/shared/model/bakandErrore.interface';
 import { ICurrentUser } from 'src/app/core/shared/model/currentUser.interface';
 import { IRegisterRequest } from '../../modele';
 import {  RegistorActionType } from './index';
@@ -16,5 +17,6 @@ export const registerSuccessAction = createAction(
 
 export const registerFailureAction = createAction(
     RegistorActionType.REGISTOR_FAILURE,
+    props<{errore:IBakendErrore}>()
     
 )

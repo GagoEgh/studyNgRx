@@ -1,7 +1,10 @@
 <div class="container">
-    <div class="login">
-        <h1 class="login__title">Sign up</h1>
+
+    <div class="login" >
+        <h1 class="login__title" >Sign up</h1>
         <a routerLink="/login">Have an acount?</a>
+        <app-backend-errore *ngIf="backendErrore$|async"
+         [backendErrore]="backendErrore$|async"></app-backend-errore>
         <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="fill">
                 <mat-label>Enter your name</mat-label>
@@ -33,7 +36,8 @@
                 </mat-error>
                 
             </mat-form-field>
-            <button class="login-btn" mat-raised-button [disabled]="isSubmit$|async">Registr</button>
+            <button class="login-btn"  [class.disable]='isSubmit$|async' mat-raised-button 
+            [disabled]="isSubmit$|async">Registr</button>
         </form>
     </div>
 </div>

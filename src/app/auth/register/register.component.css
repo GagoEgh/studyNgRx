@@ -25,5 +25,10 @@
   background-color: #5cb85c !important;
   color: white  !important;
   width: 100px !important;
-    align-self: end !important;
+  align-self: end !important;
+}
+
+.disable{
+    opacity: 0.5;
+    /* background-color: #5cb85c !important; */
 }

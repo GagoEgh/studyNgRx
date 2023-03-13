@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store, } from '@ngrx/store';
-import { map, Observable, } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { Observable, } from 'rxjs';
 import { registerAction } from '../store/action';
 import { IRegisterRequest } from '../modele';
-import { isSubmitingSelector } from '../store/selector/aut.selector';
+import { backendErroreSelector, isSubmitingSelector } from '../store/selector/aut.selector';
+import { IBakendErrore } from 'src/app/core/shared/model/bakandErrore.interface';
 
 
 
@@ -18,18 +18,28 @@ export class RegisterComponent {
   hide = true;
   registerForm!: FormGroup;
   isSubmit$ = new Observable<boolean>();
+  backendErrore$ = new Observable<IBakendErrore|null>();
+
 
   constructor(
     private _fb: FormBuilder,
     private _store: Store,
-    private _authServic:AuthService
+
   ) { }
 
+
+  
   ngOnInit(): void {
     this.initForm();
-    this.isSubmit$ = this._store.pipe(select(isSubmitingSelector))
+    this.initSelector()
+
   }
 
+  initSelector(){
+    this.isSubmit$ = this._store.pipe(select(isSubmitingSelector));
+    this.backendErrore$ = this._store.pipe(select(backendErroreSelector));
+  }
+  
   initForm() {
     this.registerForm = this._fb.group(
       {
@@ -50,16 +60,6 @@ export class RegisterComponent {
       user: this.registerForm.value
     }
     this._store.dispatch(registerAction({ request }));
-
-    // this._authServic.register(request)
-    // .subscribe({
-    //   next:(res)=>{
-    //     console.log(res)
-    //   },
-    //   error:(err)=>{
-    //     console.log(err)
-    //   }
-    // })
   }
 }
 

@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { LoginComponent, RegisterComponent } from '.';
 import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './store/reduce/register.reduce';
 import { EffectsModule } from '@ngrx/effects';
 import { RegisterEffects } from './store/effects/register.effects';
+import { SharedModule } from '../core/shared/shared.module';
 
 
 const routes: Routes = [
@@ -29,9 +28,7 @@ const routes: Routes = [
   ],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    SharedModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
